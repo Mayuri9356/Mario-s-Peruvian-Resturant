@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario's Peruvian & Seafood — Los Angeles</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#c9a84c;--gold2:#e8c97a;--deep:#080503;--warm:#130d07;--cream:#f5ede0;--red:#8b1a28;--text:#c8b48a;--white:#fff8f0;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden;cursor:none;}
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s;top:0;left:0;}
+#cur2{position:fixed;width:34px;height:34px;border:1.5px solid rgba(201,168,76,.55);border-radius:50%;pointer-events:none;z-index:9998;top:0;left:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:26px 60px;transition:all .4s;}
+nav.s{background:rgba(8,5,3,.95);padding:14px 60px;border-bottom:1px solid rgba(201,168,76,.18);backdrop-filter:blur(18px);}
+.nlogo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);letter-spacing:3px;text-transform:uppercase;text-decoration:none;line-height:1.1;}
+.nlogo span{display:block;font-size:.55rem;letter-spacing:7px;color:var(--text);font-family:'Lato',sans-serif;font-weight:300;}
+.nlinks{display:flex;gap:36px;list-style:none;}
+.nlinks a{color:var(--text);text-decoration:none;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;transition:color .3s;position:relative;}
+.nlinks a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;}
+.nlinks a:hover{color:var(--gold);}
+.nlinks a:hover::after{transform:scaleX(1);}
+.nbtn{background:var(--gold);color:var(--deep);padding:10px 22px;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;text-decoration:none;transition:all .3s;}
+.nbtn:hover{background:var(--gold2);}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.hbar{position:absolute;left:0;right:0;height:65px;background:var(--deep);z-index:3;}
+.hbar.t{top:0;}.hbar.b{bottom:0;}
+.hcontent{position:relative;z-index:5;text-align:center;padding:0 20px;}
+.htag{font-size:.6rem;letter-spacing:10px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fup 1s ease .4s forwards;}
+.htitle{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,10vw,9rem);font-weight:900;line-height:.9;color:var(--white);opacity:0;animation:fup 1.1s ease .7s forwards;text-shadow:0 4px 80px rgba(0,0,0,.8);}
+.htitle em{font-style:italic;color:var(--gold);display:block;}
+.hsub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.45rem);font-weight:300;font-style:italic;color:var(--cream);margin:28px 0 44px;opacity:0;animation:fup 1.1s ease 1s forwards;}
+.hctas{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fup 1.1s ease 1.3s forwards;}
+.bp{background:var(--gold);color:var(--deep);padding:15px 44px;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-block;transition:all .3s;position:relative;overflow:hidden;}
+.bp::before{content:'';position:absolute;inset:0;background:var(--gold2);transform:translateX(-100%);transition:transform .4s;}
+.bp:hover::before{transform:translateX(0);}
+.bp span{position:relative;z-index:1;}
+.bo{background:transparent;color:var(--white);padding:14px 44px;border:1.5px solid rgba(255,255,255,.35);font-size:.65rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;text-decoration:none;display:inline-block;transition:all .3s;}
+.bo:hover{border-color:var(--gold);color:var(--gold);}
+.scrl{position:absolute;bottom:96px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fin 1s ease 2s forwards;}
+.scrl span{font-size:.5rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);}
+.scrlbar{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sp 2s ease infinite;}
+@keyframes sp{0%,100%{opacity:1;transform:scaleY(1);}50%{opacity:.3;transform:scaleY(.5);}}
+
+/* DISH ART — pure CSS */
+.dish-art{width:100%;height:100%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.da-ceviche{background:radial-gradient(ellipse at 40% 55%,#1f4a32 0%,#0f2418 50%,#060e0a 100%);}
+.da-ceviche::before{content:'';position:absolute;width:min(55%,160px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#e8d090 0%,#c4a060 35%,#8b6010 65%,#4a380e 100%);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 6px 40px rgba(0,0,0,.6),0 0 60px rgba(200,160,60,.12);}
+.da-ceviche::after{content:'';position:absolute;width:min(75%,200px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(200,160,80,.12);top:50%;left:50%;transform:translate(-50%,-50%);}
+.da-lomo{background:radial-gradient(ellipse at 35% 65%,#2d1e0c 0%,#180f06 55%,#080402 100%);}
+.da-lomo::before{content:'';position:absolute;width:min(60%,180px);height:min(40%,120px);border-radius:55% 45% 55% 45%;background:linear-gradient(140deg,#9b5018 0%,#6a3210 45%,#3d1c08 80%,#220e04 100%);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 8px 50px rgba(139,80,24,.4);}
+.da-fish{background:radial-gradient(ellipse at 50% 45%,#0e1e30 0%,#060e18 55%,#020508 100%);}
+.da-fish::before{content:'';position:absolute;width:min(70%,200px);height:min(30%,90px);border-radius:60% 60% 40% 40%;background:linear-gradient(180deg,#e8e0c0 0%,#c8b888 45%,#a09060 80%);top:50%;left:50%;transform:translate(-50%,-50%) rotate(-8deg);box-shadow:0 6px 30px rgba(0,0,0,.6);}
+.da-tallarin{background:radial-gradient(ellipse at 65% 35%,#220f08 0%,#120605 55%,#060303 100%);}
+.da-tallarin::before{content:'';position:absolute;width:min(60%,170px);height:min(40%,115px);border-radius:40% 60% 40% 60%;background:linear-gradient(155deg,#c86020 0%,#8b3c10 45%,#542208 80%);top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 8px 40px rgba(200,96,32,.28);}
+.da-soup{background:radial-gradient(ellipse at 50% 45%,#1e0c08 0%,#100605 55%,#060302 100%);}
+.da-soup::before{content:'';position:absolute;width:min(58%,175px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#c44020 0%,#8b2212 50%,#581408 85%);top:50%;left:50%;transform:translate(-50%,-55%);box-shadow:0 8px 40px rgba(200,60,30,.35);}
+.da-rice{background:radial-gradient(ellipse at 55% 45%,#162014 0%,#0c1609 55%,#060a05 100%);}
+.da-rice::before{content:'';position:absolute;width:min(55%,165px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#f2e4c0 0%,#e0ca90 45%,#c4a870 75%);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* Overlay label on dish */
+.dish-label{position:absolute;bottom:0;left:0;right:0;padding:28px 22px;background:linear-gradient(to top,rgba(8,5,3,.95) 0%,rgba(8,5,3,.65) 55%,transparent 100%);z-index:2;}
+.dish-tag{font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+.dish-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--white);line-height:1.2;}
+.dish-desc{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text);margin-top:6px;font-style:italic;opacity:0;transform:translateY(10px);transition:all .4s;}
+.mc:hover .dish-desc{opacity:1;transform:translateY(0);}
+.dish-arr{color:var(--gold);opacity:0;transform:translateX(-8px);transition:all .3s;margin-top:8px;font-size:.75rem;letter-spacing:2px;}
+.mc:hover .dish-arr{opacity:1;transform:translateX(0);}
+.mc{position:relative;overflow:hidden;cursor:pointer;}
+.mc .dish-art,.mc .da-ceviche,.mc .da-lomo,.mc .da-fish,.mc .da-tallarin,.mc .da-soup,.mc .da-rice{transition:transform .7s ease;}
+.mc:hover .dish-art{transform:scale(1.07);}
+
+/* SHARED */
+section{position:relative;overflow:hidden;}
+.slbl{font-size:.58rem;letter-spacing:8px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block;}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,5rem);font-weight:900;line-height:1.05;color:var(--white);}
+.stitle em{color:var(--gold);font-style:italic;}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .85s ease,transform .85s ease;}
+.rv.on{opacity:1;transform:translateY(0);}
+
+/* INTRO */
+#intro{padding:120px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;background:radial-gradient(ellipse 130% 80% at -5% 110%,rgba(201,168,76,.07) 0%,transparent 50%),radial-gradient(ellipse 80% 60% at 110% -10%,rgba(139,26,40,.06) 0%,transparent 50%),var(--deep);}
+.ibig{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5.5rem);font-weight:900;line-height:1;color:var(--white);margin-bottom:26px;}
+.ibig em{color:var(--gold);font-style:italic;display:block;}
+.ibody{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.85;color:var(--text);max-width:460px;}
+.istats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border-top:1px solid rgba(201,168,76,.22);border-bottom:1px solid rgba(201,168,76,.22);}
+.istat{padding:28px 0;text-align:center;border-right:1px solid rgba(201,168,76,.14);}
+.istat:last-child{border-right:none;}
+.inum{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--gold);line-height:1;display:block;}
+.ilbl{font-size:.54rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);margin-top:5px;display:block;}
+.dish-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.dish-thumb{overflow:hidden;position:relative;cursor:pointer;}
+.dish-thumb:first-child{grid-column:1/-1;}
+.dish-thumb:first-child .dish-art{height:200px;}
+.dish-thumb .dish-art{height:160px;transition:transform .6s ease;}
+.dish-thumb:hover .dish-art{transform:scale(1.06);}
+
+/* MARQUEE */
+#mq{overflow:hidden;line-height:0;background:var(--gold);}
+.mqt{display:flex;white-space:nowrap;animation:mqs 22s linear infinite;}
+.mqt:hover{animation-play-state:paused;}
+.mqi{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;color:var(--deep);padding:16px 34px;flex-shrink:0;display:flex;align-items:center;gap:14px;}
+.mqd{width:6px;height:6px;border-radius:50%;background:rgba(8,5,3,.3);flex-shrink:0;}
+@keyframes mqs{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* MENU */
+#menu{padding:130px 60px;background:radial-gradient(ellipse 100% 60% at 50% 100%,rgba(201,168,76,.055) 0%,transparent 60%),var(--warm);}
+.mhdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:70px;}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.mgrid .mc:first-child{grid-column:span 2;}
+.mgrid .mc:first-child .dish-art{height:320px;}
+.mgrid .mc:not(:first-child) .dish-art{height:380px;}
+
+/* STORY */
+#story{padding:130px 60px;display:grid;grid-template-columns:1fr 1.2fr;gap:90px;align-items:center;background:radial-gradient(ellipse 80% 80% at 0% 50%,rgba(201,168,76,.045) 0%,transparent 55%),var(--deep);}
+.svf{position:relative;max-height:580px;overflow:hidden;background:#0e0a06;}
+.svf-inner{height:500px;position:relative;overflow:hidden;}
+#vidCanvas{width:100%;height:100%;}
+.sgf{position:absolute;top:-14px;left:-14px;right:14px;bottom:14px;border:2px solid rgba(201,168,76,.28);pointer-events:none;z-index:-1;}
+.sybadge{position:absolute;bottom:-24px;right:-24px;width:88px;height:88px;background:var(--gold);z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--deep);}
+.sybadge .yr{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;line-height:1;}
+.sybadge .sc{font-size:.44rem;letter-spacing:3px;text-transform:uppercase;}
+.spbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:66px;height:66px;background:rgba(201,168,76,.88);border-radius:50%;z-index:5;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;animation:pp 2.5s ease infinite;}
+.spbtn:hover{background:var(--gold);transform:translate(-50%,-50%) scale(1.1);}
+@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4);}50%{box-shadow:0 0 0 18px rgba(201,168,76,0);}}
+.pico{width:0;height:0;border-top:11px solid transparent;border-bottom:11px solid transparent;border-left:18px solid var(--deep);margin-left:4px;}
+.vid-caption{position:absolute;bottom:0;left:0;right:0;padding:24px 20px;background:linear-gradient(to top,rgba(8,5,3,.9),transparent);text-align:center;z-index:4;}
+.vid-caption h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--white);}
+.vid-caption p{font-size:.5rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-top:5px;}
+.squote{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.6rem);font-style:italic;font-weight:400;color:var(--white);line-height:1.35;margin-bottom:34px;}
+.squote::before{content:'\201C';font-size:5rem;color:var(--gold);line-height:0;display:block;margin-bottom:16px;opacity:.22;}
+.sbody{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.9;color:var(--text);margin-bottom:40px;}
+.ssig{font-family:'Playfair Display',serif;font-size:1.65rem;font-style:italic;color:var(--gold);}
+.ssig span{display:block;font-family:'Lato',sans-serif;font-size:.54rem;letter-spacing:4px;text-transform:uppercase;color:var(--text);font-style:normal;margin-top:4px;}
+
+/* REVIEWS */
+#reviews{padding:130px 60px;background:radial-gradient(ellipse 70% 50% at 100% 0%,rgba(201,168,76,.055) 0%,transparent 50%),radial-gradient(ellipse 80% 60% at 0% 100%,rgba(139,26,40,.055) 0%,transparent 50%),var(--warm);}
+.rhdr{text-align:center;margin-bottom:70px;}
+.rstars{display:flex;justify-content:center;gap:7px;margin-top:14px;}
+.star{color:var(--gold);font-size:1.1rem;}
+.rtrack{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.rcard{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);padding:44px 34px;position:relative;transition:all .4s;}
+.rcard:hover{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.3);transform:translateY(-5px);}
+.rcard::before{content:'\201C';font-family:'Playfair Display',serif;font-size:4.5rem;color:var(--gold);position:absolute;top:16px;left:24px;line-height:1;opacity:.16;}
+.rtxt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.8;color:var(--cream);font-style:italic;margin-bottom:24px;position:relative;}
+.rauth{font-size:.58rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+
+/* BAND */
+#band{height:50vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+#bandCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.bandtxt{position:relative;z-index:2;text-align:center;}
+.bandtxt h2{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,8vw,7.5rem);font-weight:900;font-style:italic;color:var(--white);line-height:1;text-shadow:0 4px 40px rgba(0,0,0,.6);}
+.bandtxt h2 em{color:var(--gold);}
+
+/* INFO */
+#info{padding:130px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(19,13,7,1) 0%,rgba(8,5,3,1) 100%);}
+.icard{padding:52px;border:1px solid rgba(201,168,76,.13);position:relative;overflow:hidden;transition:border-color .4s;}
+.icard:hover{border-color:rgba(201,168,76,.32);}
+.icard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.icico{font-size:1.7rem;margin-bottom:24px;display:block;}
+.ictitle{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--white);margin-bottom:24px;}
+.icline{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid rgba(201,168,76,.1);font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream);}
+.icline:last-child{border-bottom:none;}
+.iclbl{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);min-width:54px;margin-top:3px;flex-shrink:0;}
+.clink{display:flex;align-items:center;gap:14px;color:var(--text);text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:1.05rem;padding:15px 0;border-bottom:1px solid rgba(201,168,76,.1);transition:color .3s;}
+.clink:last-child{border-bottom:none;}
+.clink:hover{color:var(--gold);}
+.clink::before{content:'→';color:var(--gold);opacity:0;transition:all .3s;transform:translateX(-8px);}
+.clink:hover::before{opacity:1;transform:translateX(0);}
+
+footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.16);padding:48px 60px;display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);letter-spacing:2px;}
+.fcopy{font-size:.57rem;letter-spacing:2px;color:rgba(200,180,138,.32);text-transform:uppercase;}
+.flinks{display:flex;gap:24px;}
+.flinks a{font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;}
+.flinks a:hover{color:var(--gold);}
+
+#aibtn{position:fixed;bottom:36px;right:36px;z-index:900;width:56px;height:56px;background:var(--gold);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 6px 36px rgba(201,168,76,.35);transition:all .3s;animation:aip 3s ease infinite;}
+#aibtn:hover{transform:scale(1.1);background:var(--gold2);}
+@keyframes aip{0%,100%{box-shadow:0 6px 36px rgba(201,168,76,.35);}50%{box-shadow:0 6px 56px rgba(201,168,76,.6);}}
+#aipanel{position:fixed;bottom:110px;right:36px;z-index:900;width:310px;background:rgba(16,10,5,.97);border:1px solid rgba(201,168,76,.28);padding:24px;display:none;backdrop-filter:blur(18px);}
+#aipanel.open{display:block;animation:pin .3s ease;}
+@keyframes pin{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+#aipanel h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);margin-bottom:5px;}
+#aipanel p{font-size:.7rem;color:var(--text);margin-bottom:13px;line-height:1.6;}
+#aiinput{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.18);color:var(--white);padding:9px 13px;font-size:.78rem;font-family:'Lato',sans-serif;outline:none;resize:none;height:74px;}
+#aiinput::placeholder{color:rgba(200,180,138,.26);}
+#aisend{width:100%;margin-top:8px;background:var(--gold);color:var(--deep);border:none;padding:11px;cursor:pointer;font-size:.6rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;transition:background .3s;}
+#aisend:hover{background:var(--gold2);}
+#airesp{margin-top:13px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--cream);line-height:1.7;min-height:44px;}
+
+@keyframes fup{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fin{from{opacity:0;}to{opacity:1;}}
+
+@media(max-width:860px){
+  nav{padding:18px 22px;}nav.s{padding:12px 22px;}.nlinks{display:none;}
+  #intro,#story,#info{grid-template-columns:1fr;padding:70px 22px;gap:48px;}
+  #menu{padding:70px 22px;}
+  .mgrid{grid-template-columns:1fr 1fr;}
+  .mgrid .mc:first-child{grid-column:span 2;}.mgrid .mc:first-child .dish-art{height:220px;}
+  .mgrid .mc:not(:first-child) .dish-art{height:260px;}
+  .rtrack{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:16px;text-align:center;padding:34px 22px;}
+  .hbar{height:40px;}
+  #aibtn{bottom:18px;right:18px;}#aipanel{right:18px;bottom:92px;width:calc(100vw - 36px);}
+  body{cursor:auto;}#cur,#cur2{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<nav id="nb">
+  <a href="#" class="nlogo">Mario's<span>Peruvian & Seafood · L.A.</span></a>
+  <ul class="nlinks">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#info">Visit Us</a></li>
+  </ul>
+  <a href="tel:+13234664181" class="nbtn">Call to Order</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hbar t"></div>
+  <div class="hbar b"></div>
+  <canvas id="heroCanvas"></canvas>
+  <div class="hcontent">
+    <div class="htag">Est. Melrose Avenue · Los Angeles, California</div>
+    <h1 class="htitle">The Soul of<em>Peru</em>in L.A.</h1>
+    <p class="hsub">Authentic Peruvian cuisine, crafted with love for over two decades</p>
+    <div class="hctas">
+      <a href="#menu" class="bp"><span>Explore the Menu</span></a>
+      <a href="tel:+13234664181" class="bo">Call (323) 466-4181</a>
+    </div>
+  </div>
+  <div class="scrl"><span>Scroll</span><div class="scrlbar"></div></div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="rv">
+    <h2 class="ibig">More than<em>a meal.</em></h2>
+    <p class="ibody">Nestled on Melrose Avenue, Mario's has been feeding the hearts of Los Angeles since the day we opened. Every dish is a journey — from the sun-drenched shores of Lima to your table.</p>
+    <div class="istats">
+      <div class="istat"><span class="inum">20+</span><span class="ilbl">Years of Excellence</span></div>
+      <div class="istat"><span class="inum">5★</span><span class="ilbl">Google Rating</span></div>
+      <div class="istat"><span class="inum">100%</span><span class="ilbl">Authentic Flavors</span></div>
+    </div>
+  </div>
+  <div class="rv">
+    <div class="dish-grid">
+      <div class="dish-thumb" style="grid-column:1/-1">
+        <div class="dish-art da-ceviche" style="height:200px"></div>
+        <div class="dish-label"><div class="dish-tag">Our Signature</div><div class="dish-name">Ceviche Mixto</div></div>
+      </div>
+      <div class="dish-thumb">
+        <div class="dish-art da-lomo" style="height:160px"></div>
+        <div class="dish-label"><div class="dish-name">Lomo Saltado</div></div>
+      </div>
+      <div class="dish-thumb">
+        <div class="dish-art da-rice" style="height:160px"></div>
+        <div class="dish-label"><div class="dish-name">Arroz con Mariscos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section id="mq">
+  <div class="mqt">
+    <div class="mqi"><span>Ceviche Mixto</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Lomo Saltado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Arroz con Mariscos</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Papa Huancaína</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Chicharrón de Pescado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Tallarin Saltado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Sopa de Mariscos</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Pollo Saltado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Ceviche Mixto</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Lomo Saltado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Arroz con Mariscos</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Papa Huancaína</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Chicharrón de Pescado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Tallarin Saltado</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Sopa de Mariscos</span><div class="mqd"></div></div>
+    <div class="mqi"><span>Pollo Saltado</span><div class="mqd"></div></div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="mhdr rv">
+    <div><span class="slbl">The Kitchen</span><h2 class="stitle">Packed with <em>Flavor</em></h2></div>
+    <a href="https://mariosperuvianrestaurant.com/los-angeles-mario-s-peruvian-restaurant-food-menu" class="bo" target="_blank">Full Menu</a>
+  </div>
+  <div class="mgrid rv">
+    <div class="mc">
+      <div class="dish-art da-ceviche"></div>
+      <div class="dish-label"><div class="dish-tag">Most Loved</div><div class="dish-name">Mixed Seafood Ceviche</div><div class="dish-desc">Fresh seafood in citrus with onions, cilantro & corn</div><div class="dish-arr">→ View menu</div></div>
+    </div>
+    <div class="mc">
+      <div class="dish-art da-lomo"></div>
+      <div class="dish-label"><div class="dish-tag">Fan Favorite</div><div class="dish-name">Lomo Saltado</div><div class="dish-desc">Beef, onions, tomatoes & fried potatoes</div><div class="dish-arr">→ View menu</div></div>
+    </div>
+    <div class="mc">
+      <div class="dish-art da-fish"></div>
+      <div class="dish-label"><div class="dish-tag">Seafood</div><div class="dish-name">Chicharrón de Pescado</div><div class="dish-desc">Crispy fried fish, shrimp & squid</div><div class="dish-arr">→ View menu</div></div>
+    </div>
+    <div class="mc">
+      <div class="dish-art da-tallarin"></div>
+      <div class="dish-label"><div class="dish-tag">House Special</div><div class="dish-name">Tallarin Saltado</div><div class="dish-desc">Chicken & pasta with scallions & tomatoes</div><div class="dish-arr">→ View menu</div></div>
+    </div>
+    <div class="mc">
+      <div class="dish-art da-soup"></div>
+      <div class="dish-label"><div class="dish-tag">Comfort</div><div class="dish-name">Sopa de Mariscos</div><div class="dish-desc">Rich tomato & seafood soup</div><div class="dish-arr">→ View menu</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+  <div class="rv" style="position:relative">
+    <div class="sgf"></div>
+    <div class="svf">
+      <div class="svf-inner">
+        <canvas id="vidCanvas"></canvas>
+        <div class="vid-caption">
+          <h3>Mario's Kitchen</h3>
+          <p>Melrose Avenue · Since 2000</p>
+        </div>
+        <div class="spbtn"><div class="pico"></div></div>
+      </div>
+    </div>
+    <div class="sybadge"><span class="sc">Since</span><span class="yr">2000</span></div>
+  </div>
+  <div class="rv">
+    <span class="slbl">Our Heritage</span>
+    <blockquote class="squote">"I can't find another like it."</blockquote>
+    <p class="sbody">For over twenty years, Mario's has been a beloved institution on Melrose Avenue. Born from a passion to share the vibrant, layered flavors of Peru with Los Angeles, our kitchen has never wavered in its commitment to authenticity.</p>
+    <p class="sbody">Whether it's your first visit or your five hundredth, you'll always leave with a full heart and a reason to return.</p>
+    <div class="ssig">Mario's Family<span>— Melrose Avenue, Los Angeles</span></div>
+  </div>
+</section>
+
+<!-- PARALLAX BAND -->
+<section id="band">
+  <canvas id="bandCanvas"></canvas>
+  <div class="bandtxt rv"><h2>To taste is to <em>live.</em></h2></div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="rhdr rv">
+    <span class="slbl">What They Say</span>
+    <h2 class="stitle">Loved by <em>Los Angeles</em></h2>
+    <div class="rstars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+  </div>
+  <div class="rtrack">
+    <div class="rcard rv"><p class="rtxt">Hands down the best Peruvian food. Always taste the bomb, been coming here for over 20+ years. Worth every wait. I can't find another like it.</p><div class="rauth">Benjamin R. — Google Review</div></div>
+    <div class="rcard rv"><p class="rtxt">Hands down the best meal of the trip. My family was so happy. Perfection doesn't change — this place is legendary.</p><div class="rauth">Del W. — Google Review</div></div>
+    <div class="rcard rv"><p class="rtxt">Amazing Peruvian food hidden away in a tiny gem. Recommended by an LA native — don't miss out! The ceviche is absolutely unreal.</p><div class="rauth">SnapB4cK — Google Review</div></div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="icard rv">
+    <span class="icico">📍</span>
+    <h3 class="ictitle">Find Us</h3>
+    <div class="icline"><span class="iclbl">Where</span><span>5786 Melrose Avenue<br>Los Angeles, CA 90038</span></div>
+    <div class="icline"><span class="iclbl">Mon–Thu</span><span>11:30 AM – 8:00 PM</span></div>
+    <div class="icline"><span class="iclbl">Fri–Sat</span><span>11:30 AM – 9:00 PM</span></div>
+    <div class="icline"><span class="iclbl">Sunday</span><span>11:30 AM – 8:00 PM</span></div>
+  </div>
+  <div class="icard rv">
+    <span class="icico">✉️</span>
+    <h3 class="ictitle">Get in Touch</h3>
+    <a href="tel:+13234664181" class="clink">(323) 466-4181</a>
+    <a href="mailto:mariosperuvian@gmail.com" class="clink">mariosperuvian@gmail.com</a>
+    <a href="https://www.doordash.com/store/mario%27s-peruvian-%26-seafood-los-angeles-5167/" class="clink" target="_blank">Order on DoorDash</a>
+    <a href="https://maps.google.com/?q=5786+Melrose+Avenue+Los+Angeles+CA" class="clink" target="_blank">Get Directions</a>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Mario's</div>
+  <div class="fcopy">© 2024 Mario's Peruvian & Seafood · Los Angeles</div>
+  <div class="flinks">
+    <a href="tel:+13234664181">Call</a>
+    <a href="https://www.doordash.com/store/mario%27s-peruvian-%26-seafood-los-angeles-5167/" target="_blank">Order</a>
+    <a href="https://mariosperuvianrestaurant.com/los-angeles-mario-s-peruvian-restaurant-food-menu" target="_blank">Menu</a>
+  </div>
+</footer>
+
+<div id="aibtn" title="Ask our AI about the menu">🤖</div>
+<div id="aipanel">
+  <h4>AI Menu Concierge</h4>
+  <p>Ask anything about Mario's dishes, hours, or specialties!</p>
+  <textarea id="aiinput" placeholder="e.g. Best dish for seafood lovers?"></textarea>
+  <button id="aisend">Ask Now</button>
+  <div id="airesp"></div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function aC(){cur.style.left=(mx-5)+'px';cur.style.top=(my-5)+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cur2.style.left=(rx-17)+'px';cur2.style.top=(ry-17)+'px';requestAnimationFrame(aC);})();
+document.querySelectorAll('a,button,.mc,.dish-thumb').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.2)';cur2.style.transform='scale(1.5)';});el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';cur2.style.transform='scale(1)';});});
+
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('s',scrollY>70));
+
+// HERO CANVAS — Animated fluid aurora
+(function(){
+  const cv=document.getElementById('heroCanvas'),ctx=cv.getContext('2d');
+  function rsz(){cv.width=window.innerWidth;cv.height=document.getElementById('hero').offsetHeight;}
+  rsz();window.addEventListener('resize',rsz);
+
+  // Organic blobs — dark spicy palette
+  const blobs=[
+    {x:.15,y:.7,r:.55,vx:.0008,vy:-.0005,h:22,s:60,l:9,a:.7},
+    {x:.8,y:.3,r:.5,vx:-.0006,vy:.0007,h:340,s:40,l:7,a:.6},
+    {x:.5,y:.9,r:.6,vx:.0004,vy:-.0009,h:28,s:50,l:8,a:.55},
+    {x:.2,y:.2,r:.4,vx:.0009,vy:.0006,h:15,s:35,l:6,a:.5},
+    {x:.7,y:.7,r:.45,vx:-.0007,vy:-.0005,h:350,s:30,l:5,a:.45},
+    {x:.4,y:.4,r:.5,vx:.0005,vy:.0008,h:25,s:45,l:7,a:.5},
+  ];
+  let t=0;
+  function draw(){
+    t+=.005;
+    const W=cv.width,H=cv.height;
+    // Solid base
+    ctx.fillStyle='#060402';ctx.fillRect(0,0,W,H);
+
+    // Blobs
+    blobs.forEach(b=>{
+      b.x+=b.vx+Math.sin(t*.8+b.h)*.0003;
+      b.y+=b.vy+Math.cos(t*.7+b.s)*.0003;
+      if(b.x<-.3||b.x>1.3)b.vx*=-1;
+      if(b.y<-.3||b.y>1.3)b.vy*=-1;
+      const g=ctx.createRadialGradient(b.x*W,b.y*H,0,b.x*W,b.y*H,b.r*Math.min(W,H));
+      g.addColorStop(0,`hsla(${b.h},${b.s}%,${b.l+3}%,${b.a})`);
+      g.addColorStop(.5,`hsla(${b.h},${b.s}%,${b.l}%,${b.a*.5})`);
+      g.addColorStop(1,'hsla(0,0%,0%,0)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    });
+
+    // Gold diagonal light shafts
+    for(let i=0;i<3;i++){
+      const x=W*(.2+i*.3+Math.sin(t*.5+i)*.04);
+      const grad=ctx.createLinearGradient(x,0,x+W*.08,H);
+      grad.addColorStop(0,`rgba(201,168,76,${.035+i*.008})`);
+      grad.addColorStop(.5,`rgba(201,168,76,${.018+i*.004})`);
+      grad.addColorStop(1,'rgba(201,168,76,0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath();ctx.moveTo(x-W*.02,0);ctx.lineTo(x+W*.1,0);ctx.lineTo(x+W*.12,H);ctx.lineTo(x,H);ctx.fill();
+    }
+
+    // Subtle top vignette
+    const vt=ctx.createLinearGradient(0,0,0,H*.35);
+    vt.addColorStop(0,'rgba(6,4,2,.7)');vt.addColorStop(1,'rgba(6,4,2,0)');
+    ctx.fillStyle=vt;ctx.fillRect(0,0,W,H);
+    const vb=ctx.createLinearGradient(0,H*.6,0,H);
+    vb.addColorStop(0,'rgba(6,4,2,0)');vb.addColorStop(1,'rgba(6,4,2,.88)');
+    ctx.fillStyle=vb;ctx.fillRect(0,0,W,H);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// VID CANVAS — Kitchen steam animation
+(function(){
+  const cv=document.getElementById('vidCanvas'),ctx=cv.getContext('2d');
+  function rsz(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
+  rsz();window.addEventListener('resize',rsz);
+  const ps=Array.from({length:22},()=>({
+    x:.25+Math.random()*.5,y:.6+Math.random()*.5,
+    vy:.002+Math.random()*.003,vx:(Math.random()-.5)*.001,
+    sz:.04+Math.random()*.07,life:Math.random()
+  }));
+  let t=0;
+  function draw(){
+    t+=.012;
+    const W=cv.offsetWidth,H=cv.offsetHeight;
+    if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+    ctx.clearRect(0,0,W,H);
+    // Dark kitchen BG
+    const bg=ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#060402');bg.addColorStop(.6,'#100a05');bg.addColorStop(1,'#1a1008');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+    // Warm stove glow bottom
+    const gw=ctx.createRadialGradient(W*.5,H,0,W*.5,H,W*.7);
+    gw.addColorStop(0,'rgba(200,90,15,.3)');gw.addColorStop(.5,'rgba(140,55,8,.15)');gw.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=gw;ctx.fillRect(0,0,W,H);
+    // Gold top glow
+    const gt=ctx.createRadialGradient(W*.5,H*.15,0,W*.5,H*.15,W*.5);
+    gt.addColorStop(0,'rgba(201,168,76,.1)');gt.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=gt;ctx.fillRect(0,0,W,H);
+    // Steam particles
+    ps.forEach(p=>{
+      p.y-=p.vy;p.x+=p.vx+Math.sin(t+p.sz*20)*.0004;p.life+=.004+p.sz*.01;
+      if(p.life>1||p.y<-.1){p.y=.6+Math.random()*.4;p.x=.25+Math.random()*.5;p.life=0;}
+      const alpha=Math.sin(p.life*Math.PI)*.32;
+      const g=ctx.createRadialGradient(p.x*W,p.y*H,0,p.x*W,p.y*H,p.sz*W);
+      g.addColorStop(0,`rgba(230,210,165,${alpha})`);g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    });
+    // Scanlines
+    for(let y=0;y<H;y+=5){ctx.fillStyle='rgba(0,0,0,.07)';ctx.fillRect(0,y,W,2);}
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// BAND CANVAS — Wave bands
+(function(){
+  const cv=document.getElementById('bandCanvas'),ctx=cv.getContext('2d');
+  function rsz(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;}
+  rsz();window.addEventListener('resize',rsz);
+  const ws=[
+    {a:.2,f:1.6,ph:0,c:'rgba(201,168,76,.1)'},
+    {a:.14,f:2.5,ph:1.3,c:'rgba(139,26,40,.12)'},
+    {a:.1,f:3.2,ph:2.4,c:'rgba(201,168,76,.065)'},
+    {a:.24,f:1.1,ph:.7,c:'rgba(190,130,40,.08)'},
+    {a:.08,f:4,ph:3.1,c:'rgba(139,26,40,.07)'},
+  ];
+  let t=0;
+  function draw(){
+    t+=.007;
+    const W=cv.offsetWidth,H=cv.offsetHeight;
+    if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H;}
+    ctx.fillStyle='#080504';ctx.fillRect(0,0,W,H);
+    ws.forEach(w=>{
+      ctx.beginPath();
+      for(let x=0;x<=W;x+=4){
+        const y=H*.5+Math.sin(x/W*Math.PI*w.f*2+t+w.ph)*H*w.a+Math.cos(x/W*Math.PI*w.f+t*.6+w.ph)*H*w.a*.45;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();
+      ctx.fillStyle=w.c;ctx.fill();
+    });
+    const v=ctx.createLinearGradient(0,0,0,H);
+    v.addColorStop(0,'rgba(8,5,3,.95)');v.addColorStop(.28,'rgba(8,5,3,0)');
+    v.addColorStop(.72,'rgba(8,5,3,0)');v.addColorStop(1,'rgba(8,5,3,.95)');
+    ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('on'),i*80);});},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// AI
+let aiOpen=false;
+document.getElementById('aibtn').addEventListener('click',()=>{aiOpen=!aiOpen;document.getElementById('aipanel').classList.toggle('open',aiOpen);});
+async function askAI(){
+  const inp=document.getElementById('aiinput'),resp=document.getElementById('airesp');
+  const q=inp.value.trim();if(!q)return;
+  resp.textContent='✨ Asking...';document.getElementById('aisend').disabled=true;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:`You are the warm AI concierge for Mario's Peruvian & Seafood, Melrose Ave, LA. Menu: Ceviche Mixto, Lomo Saltado, Arroz con Mariscos, Papa Huancaína, Chicharrón de Pescado, Tallarin Saltado, Sopa de Mariscos, Shrimp Fried Rice, Pollo Saltado. Hours: Mon-Thu & Sun 11:30am-8pm, Fri-Sat 11:30am-9pm. Address: 5786 Melrose Ave LA 90038. Phone: (323)466-4181. Be warm, brief (2-3 sentences).`,messages:[{role:'user',content:q}]})});
+    const d=await r.json();
+    resp.textContent=d.content?.find(b=>b.type==='text')?.text||'Come visit us at 5786 Melrose Ave!';
+  }catch(e){resp.textContent='Our kitchen is busy right now — call (323) 466-4181!';}
+  document.getElementById('aisend').disabled=false;
+}
+document.getElementById('aisend').addEventListener('click',askAI);
+document.getElementById('aiinput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAI();}});
+</script>
+</body>
+</html>
